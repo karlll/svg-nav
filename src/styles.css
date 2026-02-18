@@ -1,0 +1,85 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 24px;
+  display: grid;
+  gap: 24px;
+  background: #0f1222;
+  color: #f1f5ff;
+}
+
+.panel {
+  display: grid;
+  gap: 8px;
+}
+
+svg {
+  border: 1px solid #42507a;
+  background: #0a0f1d;
+}
+
+.svg-nav-host {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.svg-nav-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 130ms ease;
+  pointer-events: none;
+  display: grid;
+}
+
+.svg-nav-host:hover > .svg-nav-overlay,
+.svg-nav-host.svg-nav-hover > .svg-nav-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.svg-nav-controls {
+  justify-self: end;
+  align-self: start;
+  margin: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 32px);
+  gap: 6px;
+}
+
+.svg-nav-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #7a89b4;
+  background: rgba(11, 16, 28, 0.82);
+  color: #f4f7ff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.svg-nav-btn:hover {
+  background: rgba(36, 50, 84, 0.95);
+}
+
+.svg-nav-help {
+  grid-column: 1 / span 3;
+  font-size: 11px;
+  text-align: right;
+  color: #d5dcf7;
+  padding-top: 2px;
+  text-shadow: 0 1px 1px rgb(0 0 0 / 60%);
+}
+
+.svg-nav-host.svg-nav-grab-ready {
+  cursor: grab;
+}
+
+.svg-nav-host.svg-nav-dragging {
+  cursor: grabbing;
+}
