@@ -24,6 +24,7 @@ svg {
 .svg-nav-host {
   position: relative;
   display: inline-block;
+  width: fit-content;
   line-height: 0;
 }
 
@@ -44,36 +45,66 @@ svg {
 
 .svg-nav-controls {
   justify-self: end;
-  align-self: start;
-  margin: 10px;
-  display: grid;
-  grid-template-columns: repeat(3, 32px);
-  gap: 6px;
+  align-self: end;
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 4px;
 }
 
 .svg-nav-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #7a89b4;
-  background: rgba(11, 16, 28, 0.82);
-  color: #f4f7ff;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: #ffffff;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 18px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.svg-nav-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .svg-nav-btn:hover {
-  background: rgba(36, 50, 84, 0.95);
+  background: rgba(255, 255, 255, 0.15);
 }
 
-.svg-nav-help {
-  grid-column: 1 / span 3;
+.svg-nav-help-wrap {
+  position: relative;
+}
+
+.svg-nav-tooltip {
+  position: absolute;
+  right: calc(100% + 8px);
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #fff;
   font-size: 11px;
-  text-align: right;
-  color: #d5dcf7;
-  padding-top: 2px;
-  text-shadow: 0 1px 1px rgb(0 0 0 / 60%);
+  white-space: nowrap;
+  line-height: 1.6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 130ms ease;
+}
+
+.svg-nav-tooltip p {
+  margin: 0;
+}
+
+.svg-nav-help-wrap:hover .svg-nav-tooltip {
+  opacity: 1;
 }
 
 .svg-nav-host.svg-nav-grab-ready {

@@ -4,11 +4,11 @@ A minimal TypeScript project that enables pan/zoom controls for any SVG marked w
 
 ## Features
 
-- Hover-only overlay controls (`+`, `-`, arrow pan buttons, reset `⟲`).
+- Hover-only overlay controls: reset view icon and a help icon, displayed in the bottom-right corner of the SVG.
+- Help tooltip (shown on hover of the `?` icon) with a summary of controls.
 - Keyboard controls while hovering an enabled SVG:
-  - `+` zoom in
-  - `-` zoom out
-  - `=` reset
+  - `+` / `-` zoom in / out
+  - `=` reset view
   - Arrow keys pan
 - Mouse wheel zoom at pointer location.
 - `Alt` + drag to pan (cursor changes to `grab`/`grabbing`).
@@ -23,7 +23,7 @@ Open `index.html` in a browser.
 ## Build
 
 ```bash
-tsc -p tsconfig.json
+make
 ```
 
-The compiled file is emitted to `dist/index.js`.
+The compiled file is emitted to `dist/svg-nav.js`.

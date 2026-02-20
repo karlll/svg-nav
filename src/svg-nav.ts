@@ -2,6 +2,9 @@ const ENABLE_CLASS = "svg-nav-enabled";
 const STEP_PAN_RATIO = 0.12;
 const ZOOM_FACTOR = 1.15;
 
+const ICON_RESET = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/></svg>`;
+const ICON_HELP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>`;
+
 type ViewBox = { x: number; y: number; width: number; height: number };
 
 class SvgNavigator {
@@ -53,43 +56,37 @@ class SvgNavigator {
     const controls = document.createElement("div");
     controls.className = "svg-nav-controls";
 
+    const helpWrap = document.createElement("div");
+    helpWrap.className = "svg-nav-help-wrap";
+
+    const tooltip = document.createElement("div");
+    tooltip.className = "svg-nav-tooltip";
+    tooltip.innerHTML =
+      `<p><strong>Pan</strong>: alt+mouse or arrow keys</p>` +
+      `<p><strong>Zoom</strong>: mouse wheel or '+'/'-'</p>` +
+      `<p><strong>Reset view</strong>: icon or '='</p>`;
+
+    helpWrap.append(this.iconButton(ICON_HELP, "Help", () => {}), tooltip);
+
     controls.append(
-      this.button("＋", "Zoom in", () => this.zoomAtCenter(1 / ZOOM_FACTOR)),
-      this.button("⟲", "Reset (=)", () => this.reset()),
-      this.button("－", "Zoom out", () => this.zoomAtCenter(ZOOM_FACTOR)),
-      this.button("←", "Pan left", () => this.pan(-STEP_PAN_RATIO, 0)),
-      this.button("↑", "Pan up", () => this.pan(0, -STEP_PAN_RATIO)),
-      this.button("→", "Pan right", () => this.pan(STEP_PAN_RATIO, 0)),
-      this.button("", "", () => undefined, true),
-      this.button("↓", "Pan down", () => this.pan(0, STEP_PAN_RATIO)),
-      this.button("", "", () => undefined, true)
+      this.iconButton(ICON_RESET, "Reset view", () => this.reset()),
+      helpWrap,
     );
 
-    const help = document.createElement("div");
-    help.className = "svg-nav-help";
-    help.textContent = "Keys: +/- zoom • arrows pan • = reset • Alt+drag pan";
-
-    controls.append(help);
     overlay.append(controls);
     return overlay;
   }
 
-  private button(label: string, title: string, onClick: () => void, hidden = false): HTMLButtonElement {
+  private iconButton(svgHtml: string, title: string, onClick: () => void): HTMLButtonElement {
     const btn = document.createElement("button");
     btn.className = "svg-nav-btn";
     btn.type = "button";
-    btn.textContent = label;
     btn.title = title;
-    if (hidden) {
-      btn.style.visibility = "hidden";
-      btn.tabIndex = -1;
-      btn.setAttribute("aria-hidden", "true");
-    } else {
-      btn.addEventListener("click", (event) => {
-        event.preventDefault();
-        onClick();
-      });
-    }
+    btn.innerHTML = svgHtml;
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      onClick();
+    });
     return btn;
   }
 
