@@ -1,6 +1,8 @@
-# SVG Pan & Zoom (TypeScript, no external dependencies)
+# SVG Pan & Zoom
 
 A minimal TypeScript project that enables pan/zoom controls for any SVG marked with the class `svg-nav-enabled`.
+
+![](screenshot.png)
 
 ## Features
 
